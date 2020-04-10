@@ -107,7 +107,7 @@ public class FactuurRegel {
                 return String.format("%6.1f %-8s %-30s  €%8.2f     %3.0f%%  €%8.2f%n", product.getGewicht(), product.getEenheid(), product.getNaam(), product.getEenheidsPrijs(), kortingspercentage, prijsMetKorting);
             }
             else {
-                return String.format("%6d %-8s %-30s  €%8.2f     %3.0f%%  €%8.2f%n", aantalProducten, "", product.getNaam(), product.getEenheidsPrijs(), kortingspercentage, prijsMetKorting);
+                return String.format("%6d %-8s %-30s  €%8.2f     %3.0f%%  €%8.2f%n", aantalProducten, "per stuk", product.getNaam(), product.getEenheidsPrijs(), kortingspercentage, prijsMetKorting);
             }
         }
     }

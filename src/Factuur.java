@@ -19,7 +19,7 @@ public class Factuur {
          * De factuur moet gemakkelijk voor zowel een Nederlandse als een Belgische klant opgesteld kunnen
          * worden. Dat gebeurt op basis van de eerste twee letters van het BTW-nummer.
          */
-        boolean buitenNederland = false;
+        boolean buitenNederland = true;
         String btwNummer = "";
 
         if (buitenNederland) {
@@ -31,7 +31,7 @@ public class Factuur {
 
         double totaalprijs = 0.0;
 
-        klant = new Klant ("De Haagse Hogeschool", "Johanna Westerdijkplein", 75, "", 2521, "EN", "DEN HAAG", btwNummer);
+        klant = new Klant ("De Haagse Hogeschool", "Johanna Westerdijkplein", 75, "", 2521, "EN", "DEN HAAG", btwNummer, Klant.OVERHEID);
 
         regel1 = new FactuurRegel("Product 1", 2.50, "20-04-2021");
         regel1.setAantal (20, 1, 0.0, "");
@@ -60,17 +60,41 @@ public class Factuur {
         System.out.print (regel2);
         System.out.print (regel3);
         System.out.print (regel4);
-        System.out.format ("       %-39s   %8s  %7s  %9s%n", "", "", "", "_________");
+        System.out.format ("       %-39s   %8s  %7s  %9s%n", "", "", "", "_________ +");
 
         if (!klant.btwMoetWordenVerlegd()) {
             System.out.format ("       %-39s   %8s  %7s  %9.2f%n", "", "", "21% BTW", 0.21 * totaalprijs);
-            System.out.format ("       %-39s   %8s  %7s  %9s%n", "", "", "", "_________");
+            System.out.format ("       %-39s   %8s  %7s  %9s%n", "", "", "", "_________ +");
         }
 
         if (!klant.btwMoetWordenVerlegd()) {
             totaalprijs *= 1.21;
         }
 
-        System.out.format ("       %-39s   %8s  %7s  €%8.2f%n%n", "Totaal te betalen:", "", "", totaalprijs);
+        double kortingspercentageVanwegeTypeKlant = 0.0;
+
+        if (klant.getTypeKlant() == Klant.OVERHEID) {
+            kortingspercentageVanwegeTypeKlant = 2.0;
+        }
+        else if (klant.getTypeKlant() == Klant.HORECA) {
+            kortingspercentageVanwegeTypeKlant = 4.0;
+        }
+
+        String totaalOfSubtotaal = "Totaal te betalen";
+
+        if (kortingspercentageVanwegeTypeKlant > 0.0) {
+            totaalOfSubtotaal = "Subtotaal";
+        }
+        System.out.format ("       %-39s  %18s  €%8.2f%n", "", totaalOfSubtotaal, totaalprijs);
+
+
+        if (kortingspercentageVanwegeTypeKlant > 0.0) {
+            double korting = kortingspercentageVanwegeTypeKlant / 100.0 * totaalprijs;
+            totaalprijs -= korting;
+
+            System.out.format ("       %-39s  %18s  €%8.2f%n", "", String.format ("%2.0f%14s", kortingspercentageVanwegeTypeKlant, "% Klantkorting"), korting);
+            System.out.format ("       %-39s   %17s  %9s%n", "", "", "_________ -");
+            System.out.format ("       %-39s   %17s  €%8.2f%n", "", "Totaal te betalen", totaalprijs);
+        }
     }
 }

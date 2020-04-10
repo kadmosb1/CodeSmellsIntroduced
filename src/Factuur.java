@@ -38,10 +38,10 @@ public class Factuur {
         if (klant.btwMoetWordenVerlegd()) {
             System.out.format ("       BTW wordt verlegd naar %s%n", klant.getBTWNummer());
         }
-        System.out.println (regel1);
-        System.out.println (regel2);
-        System.out.println (regel3);
-        System.out.println (regel4);
+        System.out.print (regel1);
+        System.out.print (regel2);
+        System.out.print (regel3);
+        System.out.print (regel4);
         System.out.format ("       %-30s   %8s  %7s  %9s%n", "", "", "", "_________");
 
         if (!klant.btwMoetWordenVerlegd()) {

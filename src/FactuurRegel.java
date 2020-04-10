@@ -48,9 +48,11 @@ public class FactuurRegel {
          */
         if (aantalProducten >= 1000) {
             kortingVanwegeAantalProducten = 3.0;
+            prijsMetKorting *= (100.0 - kortingVanwegeAantalProducten) / 100.0;
         }
         else if (aantalProducten >= 100) {
             kortingVanwegeAantalProducten = 2.0;
+            prijsMetKorting *= (100.0 - kortingVanwegeAantalProducten) / 100.0;
         }
 
         Date vandaag = new Date ();
@@ -59,9 +61,17 @@ public class FactuurRegel {
         kortingVanwegeHoudbaarheidsdatum = bepaalKortingVanwegeHoudbaarheidsdatum (vandaag, verschilInDagen, product.getHoudbaarheidsdatum());
 
         kortingspercentage = 100.0 - (100.0 - kortingVanwegeAantalProducten) / 100.0 * (100.0 - kortingVanwegeHoudbaarheidsdatum);
-        prijsMetKorting *= (100.0 - kortingspercentage) / 100.0;
+        prijsMetKorting *= (100.0 - kortingVanwegeHoudbaarheidsdatum) / 100.0;
 
-        return String.format("%6d %-30s  €%8.2f     %3.0f%%  €%8.2f", aantalProducten, product.getNaam(), product.getPrijs (), kortingspercentage, prijsMetKorting);
+        if (aantalProducten == 0) {
+            return "";
+        }
+        else if (kortingVanwegeHoudbaarheidsdatum == 100.0) {
+            return "";
+        }
+        else {
+            return String.format("%6d %-30s  €%8.2f     %3.0f%%  €%8.2f%n", aantalProducten, product.getNaam(), product.getPrijs(), kortingspercentage, prijsMetKorting);
+        }
     }
 
     public double getTotaalprijs () {

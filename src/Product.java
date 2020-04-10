@@ -1,6 +1,7 @@
 import java.util.Date;
 
 public class Product {
+
     private String naam;
 
     /*
@@ -30,6 +31,10 @@ public class Product {
         return eenheidsprijs;
     }
 
+    /*
+     * Als een gewicht voor een product is gegeven, wordt de totaalprijs
+     * bepaald op basis van het gewicht vermenigvuldigd met de eenheidsprijs.
+     */
     public double getTotaalPrijs () {
 
         if (gewicht > 0.0) {
@@ -51,6 +56,10 @@ public class Product {
         return aantalProductenInVerpakking;
     }
 
+    /*
+     * Bij een gewicht moet altijd de eenheid bij dat gewicht worden opgegeven
+     * (gram of kg).
+     */
     public void setGewicht (double gewicht, String eenheid) {
         this.gewicht = gewicht;
         this.eenheid = eenheid;

@@ -16,6 +16,8 @@ public class Factuur {
 
         double totaalprijs = 0.0;
 
+        klant = new Klant ("De Haagse Hogeschool", "Johanna Westerdijkplein", 75, "", 2521, "EN", "DEN HAAG", "BE 0826882419");
+
         regel1 = new FactuurRegel("Product 1", 2.50, "20-04-2021");
         regel1.setAantalProducten(20);
         totaalprijs += regel1.getTotaalprijs();
@@ -28,8 +30,6 @@ public class Factuur {
         regel4 = new FactuurRegel("Product 4", 0.88, "21-03-2020");
         regel4.setAantalProducten(100);
         totaalprijs += regel4.getTotaalprijs();
-
-        klant = new Klant ("De Haagse Hogeschool", "Johanna Westerdijkplein", 75, "", 2521, "EN", "DEN HAAG", "BE 0826882419");
 
         printKlant(klant.getNaam(), klant.getAdres(), klant.getPostcode(), klant.getWoonplaats());
 

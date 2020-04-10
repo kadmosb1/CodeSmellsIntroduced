@@ -24,11 +24,7 @@ public class FactuurRegel {
      * Als een product minder dan 10 dagen over datum is, wordt een korting gegeven van 50%.
      * Vanaf 10 dagen over datum wordt een product gratis weg gegeven.
      */
-    protected double bepaalKortingVanwegeHoudbaarheidsdatum (Date houdbaarheidsdatum) {
-        Date vandaag = new Date ();
-        long verschilInMillisecondes = Math.abs(vandaag.getTime() - houdbaarheidsdatum.getTime ());
-        long verschilInDagen = TimeUnit.DAYS.convert(verschilInMillisecondes, TimeUnit.MILLISECONDS);
-
+    protected double bepaalKortingVanwegeHoudbaarheidsdatum (Date vandaag, long verschilInDagen, Date houdbaarheidsdatum) {
         if (vandaag.before (houdbaarheidsdatum)) {
             return 0.0;
         }
@@ -57,7 +53,10 @@ public class FactuurRegel {
             kortingVanwegeAantalProducten = 2.0;
         }
 
-        kortingVanwegeHoudbaarheidsdatum = bepaalKortingVanwegeHoudbaarheidsdatum (product.getHoudbaarheidsdatum());
+        Date vandaag = new Date ();
+        long verschilInMillisecondes = Math.abs(vandaag.getTime() - product.getHoudbaarheidsdatum().getTime ());
+        long verschilInDagen = TimeUnit.DAYS.convert(verschilInMillisecondes, TimeUnit.MILLISECONDS);
+        kortingVanwegeHoudbaarheidsdatum = bepaalKortingVanwegeHoudbaarheidsdatum (vandaag, verschilInDagen, product.getHoudbaarheidsdatum());
 
         kortingspercentage = 100.0 - (100.0 - kortingVanwegeAantalProducten) / 100.0 * (100.0 - kortingVanwegeHoudbaarheidsdatum);
         prijsMetKorting *= (100.0 - kortingspercentage) / 100.0;
@@ -82,7 +81,10 @@ public class FactuurRegel {
             kortingVanwegeAantalProducten = 2.0;
         }
 
-        kortingVanwegeHoudbaarheidsdatum = bepaalKortingVanwegeHoudbaarheidsdatum (product.getHoudbaarheidsdatum());
+        Date vandaag = new Date ();
+        long verschilInMillisecondes = Math.abs(vandaag.getTime() - product.getHoudbaarheidsdatum().getTime ());
+        long verschilInDagen = TimeUnit.DAYS.convert(verschilInMillisecondes, TimeUnit.MILLISECONDS);
+        kortingVanwegeHoudbaarheidsdatum = bepaalKortingVanwegeHoudbaarheidsdatum (vandaag, verschilInDagen, product.getHoudbaarheidsdatum());
 
         kortingspercentage = 100.0 - (100.0 - kortingVanwegeAantalProducten) / 100.0 * (100.0 - kortingVanwegeHoudbaarheidsdatum);
         prijsMetKorting *= (100.0 - kortingspercentage) / 100.0;

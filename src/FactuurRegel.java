@@ -9,9 +9,11 @@ public class FactuurRegel {
 
     private Product product;
     private int aantalProducten;
+    private double kortingspercentage;
 
     public FactuurRegel (String productnaam, double productprijs, String datum) throws ParseException {
         product = new Product (productnaam, productprijs, DatumUtil.sdf.parse(datum));
+        kortingspercentage = 0.0;
     }
 
     public void setAantalProducten (int aantal) {
@@ -41,7 +43,6 @@ public class FactuurRegel {
     public String toString () {
 
         double prijsMetKorting = aantalProducten * product.getPrijs ();
-        double kortingspercentage = 0.0;
         double kortingVanwegeAantalProducten = 0.0;
         double kortingVanwegeHoudbaarheidsdatum = 0.0;
 
@@ -67,7 +68,6 @@ public class FactuurRegel {
     public double getTotaalprijs () {
 
         double prijsMetKorting = aantalProducten * product.getPrijs ();
-        double kortingspercentage = 0.0;
         double kortingVanwegeAantalProducten = 0.0;
         double kortingVanwegeHoudbaarheidsdatum = 0.0;
 

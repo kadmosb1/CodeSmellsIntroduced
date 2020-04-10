@@ -1,5 +1,9 @@
 public class Klant {
 
+    public static final int CONSUMENT = 1;
+    public static final int OVERHEID = 2;
+    public static final int HORECA = 3;
+
     private String naam;
     private String straat;
     private int huisnummer;
@@ -9,8 +13,9 @@ public class Klant {
     private String woonplaats;
     private boolean landLigtBuitenEuropa;
     private String btwNummer;
+    private int typeKlant;
 
-    public Klant (String naam, String straat, int huisnummer, String huisnummerToevoeging, int cijfersPostcode, String lettersPostcode, String woonplaats, String btwNummer) {
+    public Klant (String naam, String straat, int huisnummer, String huisnummerToevoeging, int cijfersPostcode, String lettersPostcode, String woonplaats, String btwNummer, int typeKlant) {
         this.naam = naam;
         this.straat = straat;
         this.huisnummer = huisnummer;
@@ -19,6 +24,7 @@ public class Klant {
         this.lettersPostcode = lettersPostcode;
         this.woonplaats = woonplaats;
         this.btwNummer = btwNummer;
+        this.typeKlant = typeKlant;
     }
 
     public String getNaam () {
@@ -48,5 +54,9 @@ public class Klant {
      */
     public boolean btwMoetWordenVerlegd () {
         return !btwNummer.substring(0, 2).equals("NL");
+    }
+
+    public int getTypeKlant () {
+        return typeKlant;
     }
 }

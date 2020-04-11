@@ -1,5 +1,8 @@
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class DatumUtil {
     /*
@@ -41,5 +44,11 @@ public class DatumUtil {
     public static int getAantalDagenTussenData(Date datum1, Date datum2) {
         long verschilInMillisecondes = Math.abs(datum1.getTime() - datum2.getTime ());
         return (int) TimeUnit.DAYS.convert(verschilInMillisecondes, TimeUnit.MILLISECONDS);
+    }
+
+    public static String getDatumStringMetAantalDagenVoorVandaag (int aantalDagen) {
+        long DAY_IN_MS = 1000 * 60 * 60 * 24;
+        Date eerdereDatum = new Date(System.currentTimeMillis() - (aantalDagen * DAY_IN_MS));
+        return sdf.format(eerdereDatum);
     }
 }
